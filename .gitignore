@@ -1,0 +1,6 @@
+data
+.venv
+.vscode
+.gitattributes
+__pycache__
+.mypy_cache
