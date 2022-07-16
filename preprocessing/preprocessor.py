@@ -6,6 +6,7 @@ import pandas as pd
 import re
 import en_core_web_sm
 from functools import partial
+from sklearn.base import BaseEstimator, TransformerMixin
 from tqdm import tqdm
 tqdm.pandas()
 
@@ -57,13 +58,23 @@ def preprocessing(text, nlp_spacy, stopwords):
     return text_clean
 
 
-def remove_nan(dataframe, column_name):
+class TextTransformer(BaseEstimator, TransformerMixin):
     """
-    remove nan value from dataframe
+    Class used to preprocess text
     """
-    df_clean = dataframe.dropna(subset=[column_name])
-    df_clean = df_clean.reset_index()
-    return df_clean
+    def __init__(self, nlp_spacy, stopwords):
+        self.nlp_spacy = nlp_spacy
+        self.stopwords = stopwords
+
+    def fit(self, X=None, y=None):
+        return self
+
+    def transform(self, X=None):
+        preprocessed = X.progress_apply(lambda x: preprocessing(
+                                                        x,
+                                                        self.nlp_spacy,
+                                                        self.stopwords)).values
+        return preprocessed
 
 
 def main():
@@ -77,8 +88,6 @@ def main():
 
     dataframe = pd.read_csv("./data/ecommerceDataset.csv",
                             names=["labels", "descriptions"])
-    # dataframe.isna().sum()
-    dataframe = remove_nan(dataframe, column_name="descriptions")
 
     dataframe["descriptions"] = dataframe["descriptions"].map(str)
     p_preprocessing = partial(preprocessing,

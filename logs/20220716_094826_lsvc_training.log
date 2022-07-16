@@ -1,0 +1,26 @@
+2022-07-16 09:48:26,214 - [INFO]: [config_logging.py] - Log level has been set to INFO
+2022-07-16 09:58:42,070 - [INFO]: [<stdin>] - metrics validation dataset
+2022-07-16 10:03:49,796 - [INFO]: [<stdin>] -                         precision    recall  f1-score   support
+
+                 Books       0.99      0.96      0.98      2393
+Clothing & Accessories       0.98      0.99      0.99      1697
+           Electronics       0.98      0.97      0.98      2137
+             Household       0.97      0.99      0.98      3858
+
+              accuracy                           0.98     10085
+             macro avg       0.98      0.98      0.98     10085
+          weighted avg       0.98      0.98      0.98     10085
+
+2022-07-16 10:03:49,831 - [INFO]: [<stdin>] - metrics test dataset
+2022-07-16 10:10:18,500 - [INFO]: [<stdin>] -                         precision    recall  f1-score   support
+
+                 Books       0.98      0.97      0.98      2335
+Clothing & Accessories       0.98      0.98      0.98      1772
+           Electronics       0.98      0.97      0.97      2111
+             Household       0.97      0.99      0.98      3867
+
+              accuracy                           0.98     10085
+             macro avg       0.98      0.98      0.98     10085
+          weighted avg       0.98      0.98      0.98     10085
+
+2022-07-16 10:10:21,699 - [INFO]: [<stdin>] - Model saved!

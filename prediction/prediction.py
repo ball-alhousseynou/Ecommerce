@@ -4,30 +4,28 @@
 
 
 import joblib
-import en_core_web_sm
-from preprocessing.preprocessor import (string_to_lower,
-                                        preprocessing
-                                        )
-
-nlp_spacy = en_core_web_sm.load()
-stopwords = nlp_spacy.Defaults.stop_words
-stopwords = [string_to_lower(word)
-             for word in stopwords]
-model = joblib.load("./models/lsvc.joblib")
+import pandas as pd
+lsvc_model = joblib.load("./models/lsvc.joblib")
 
 
-def predict_lsvc(text: str, nlp_spacy=nlp_spacy, stopwords=stopwords,
-                 model=model):
+def predict_lsvc(text: str):
     """
-    compute the prediction
+    compute the prediction with lsvc
     """
     try:
-        text_clean = preprocessing(text, nlp_spacy, stopwords)
-        y_pred = model.predict([text_clean])
+        y_pred = lsvc_model.predict(pd.Series(text))
         return y_pred[0]
 
     except Exception:
         print("Input non valid. Merci d'entrer du text")
+
+
+def predict_bert(text: str,
+                 model_path="./models/bert.onnx"):
+    """
+    compute the prediction with bert
+    """
+    return None
 
 
 # text = ("Paper Plane Design Framed Wall Hanging Motivational Office "
